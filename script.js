@@ -116,10 +116,7 @@ function updateTotals(){
     const items = ul.children
     console.log(items)
     const headerSpan = document.querySelector("header span")
-    if(items.length == 1)
-      headerSpan.textContent = `${items.length} despesa`
-    else
-      headerSpan.textContent = `${items.length} despesas`
+    headerSpan.textContent = `${items.length} ${items.length != 1 ? "despesas" : "despesa"}`
   } catch(error) {
     console.log(error)
     alert("Não foi possível atualizar os totais de despesas")
