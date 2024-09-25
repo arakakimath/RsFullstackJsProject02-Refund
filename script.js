@@ -4,6 +4,7 @@ const amount = document.getElementById("amount");
 const expense = document.getElementById("expense");
 const category = document.getElementById("category");
 const ul = document.querySelector("ul");
+const headerH2 = document.querySelector("header h2");
 
 // Captura o evento de input para formatar o valor.
 amount.oninput = () => {
@@ -117,6 +118,27 @@ function updateTotals(){
     console.log(items)
     const headerSpan = document.querySelector("header span")
     headerSpan.textContent = `${items.length} ${items.length != 1 ? "despesas" : "despesa"}`
+
+    let total=0
+    // Somar os valores das despesas
+    for(item=0;item<items.length;item++){
+      const itemAmount = items[item].querySelector(".expense-amount")
+      
+      // Remove caracteres não numéricos e substitui a vírgula por ponto
+      let value = itemAmount.textContent.replace(/[^\d,]/g,"").replace(",",".")
+
+      // Converte o valor para float
+      value = parseFloat(value)
+
+      // Verifica se é um número válido
+      if (isNaN(value)) 
+        return alert("Não foi possível calcular o total. O valor não parece ser um número.")
+
+      total += value
+
+      
+      headerH2.innerHTML = `<small>R$</small>${formatCurrencyBRL(total).toUpperCase().replace("R$","")}`
+    }
   } catch(error) {
     console.log(error)
     alert("Não foi possível atualizar os totais de despesas")
