@@ -148,8 +148,10 @@ function updateTotals(){
 
 function formClear(){
   expense.value = ""
-  category.value = ""
   amount.value = ""
+
+  // Coloca o foco no input da despesa
+  expense.focus()
 }
 
 // Evento que captura o clique nos itens da lista
