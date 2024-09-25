@@ -100,9 +100,28 @@ function expenseAdd(newExpense){
 
     // Adiciona a li dentro da ul
     ul.append(expenseItem)
+
+    // Atualiza as despesas totais
+    updateTotals()
     
   } catch(error) {
     alert("Não foi possível atualizar a lista de despesas.")
     console.log(error)
+  }
+}
+
+function updateTotals(){
+  try {
+    // Recupera todos os itens (li) da lista (ul)
+    const items = ul.children
+    console.log(items)
+    const headerSpan = document.querySelector("header span")
+    if(items.length == 1)
+      headerSpan.textContent = `${items.length} despesa`
+    else
+      headerSpan.textContent = `${items.length} despesas`
+  } catch(error) {
+    console.log(error)
+    alert("Não foi possível atualizar os totais de despesas")
   }
 }
