@@ -102,6 +102,9 @@ function expenseAdd(newExpense){
     // Adiciona a li dentro da ul
     ul.append(expenseItem)
 
+    // Limpa o formulário
+    formClear()
+
     // Atualiza as despesas totais
     updateTotals()
     
@@ -141,6 +144,12 @@ function updateTotals(){
     console.log(error)
     alert("Não foi possível atualizar os totais de despesas")
   }
+}
+
+function formClear(){
+  expense.value = ""
+  category.value = ""
+  amount.value = ""
 }
 
 // Evento que captura o clique nos itens da lista
