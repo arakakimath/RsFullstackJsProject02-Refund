@@ -3,6 +3,7 @@ const form = document.querySelector("form");
 const amount = document.getElementById("amount");
 const expense = document.getElementById("expense");
 const category = document.getElementById("category");
+const ul = document.querySelector("ul");
 
 // Captura o evento de input para formatar o valor.
 amount.oninput = () => {
@@ -34,7 +35,74 @@ form.onsubmit = (event) => {
     category_name: category.options[category.selectedIndex].text,
     amount: amount.value,
     created_at: new Date(),
-  }
+  }   
+  // console.log(newExpense)
 
-  console.log(newExpense)
+  expenseAdd(newExpense);
+}
+
+function expenseAdd(newExpense){
+  try {
+    // Cria o elemento para adicionar na lista nesse modelo
+    /* <li class="expense">
+              <img src="./img/food.svg" alt="Ícone de tipo da despesa" />
+
+              <div class="expense-info">
+                <strong>Almoço</strong>
+                <span>Alimentação</span>
+              </div>
+
+              <span class="expense-amount"><small>R$</small>1.420,57</span>
+
+              <img src="./img/remove.svg" alt="remover" class="remove-icon" />
+            </li> */
+    const expenseItem = document.createElement("li");
+    expenseItem.classList.add("expense");
+
+    const expenseIcon = document.createElement("img");
+    expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
+    expenseIcon.setAttribute("alt", newExpense.category_name)
+
+    // Adiciona o ícone dentro da li
+    expenseItem.append(expenseIcon)
+
+    const expenseInfo = document.createElement("div")
+    expenseInfo.classList.add("expense-info")
+
+    const expenseName = document.createElement("strong")
+    expenseName.textContent = newExpense.expense
+
+    const expenseCategory = document.createElement("span")
+    expenseCategory.textContent = newExpense.category_name
+
+    // Adiciona o strong e a span dentro da div
+    expenseInfo.append(expenseName)
+    expenseInfo.append(expenseCategory)
+    // Adiciona a div dentro da li
+    expenseItem.append(expenseInfo)
+
+    const expenseAmount = document.createElement("span")
+    expenseAmount.classList.add("expense-amount")
+    expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.toUpperCase().replace("R$","")}`
+    
+    // Adiciona a span dentro da li
+    expenseItem.append(expenseAmount)
+
+    // Cria o ícone de remover
+    const removeIcon = document.createElement("img")
+    removeIcon.classList.add("remove-icon")
+    removeIcon.setAttribute("src", "img/remove.svg")
+    removeIcon.setAttribute("alt", "remover")
+
+    // Adiciona o ícone na li
+    expenseItem.append(removeIcon)
+
+
+    // Adiciona a li dentro da ul
+    ul.append(expenseItem)
+    
+  } catch(error) {
+    alert("Não foi possível atualizar a lista de despesas.")
+    console.log(error)
+  }
 }
