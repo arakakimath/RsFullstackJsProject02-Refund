@@ -135,10 +135,8 @@ function updateTotals(){
         return alert("Não foi possível calcular o total. O valor não parece ser um número.")
 
       total += value
-
-      
-      headerH2.innerHTML = `<small>R$</small>${formatCurrencyBRL(total).toUpperCase().replace("R$","")}`
     }
+    headerH2.innerHTML = `<small>R$</small>${formatCurrencyBRL(total).toUpperCase().replace("R$","")}`
   } catch(error) {
     console.log(error)
     alert("Não foi possível atualizar os totais de despesas")
@@ -148,6 +146,10 @@ function updateTotals(){
 // Evento que captura o clique nos itens da lista
 ul.addEventListener("click", function(event){
   // Verifica se o o que foi clicado é o ícone de remover
-  if (event.target.classList.contains("remove-icon"))
-    console.log(event)
+  if (event.target.classList.contains("remove-icon")){
+    // Remove o pai (li)
+    const item = event.target.closest(".expense")
+    item.remove()
+    updateTotals()
+  }
 })
